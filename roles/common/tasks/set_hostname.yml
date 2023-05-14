@@ -1,0 +1,30 @@
+---
+- name: configure hostname
+  become: true
+  replace:
+    path: /etc/hostname
+    regexp: 'device'
+    replace: '{{ hostname }}'
+
+- name: configure hosts file with the hostname
+  become: true
+  replace:
+    path: /etc/hosts
+    regexp: '(\s+)device\..*$'
+    replace: '\1{{ hostname }}'
+  when:
+    ddclient is not defined
+
+- name: configure hosts file with the hostname w/ ddclient name
+  become: true
+  replace:
+    path: /etc/hosts
+    regexp: '(\s+)device\..*$'
+    replace: '\1{{ hostname }} {{ ddclient.domain }}'
+  when:
+    ddclient is defined
+
+- name: set hostname of running system
+  become: true
+  hostname:
+    name: "{{ hostname }}"

@@ -1,0 +1,28 @@
+---
+- name: Install aptitude to use for full upgrades
+  become: true
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+    cache_valid_time: 3600
+  vars:
+    packages:
+    - aptitude
+    - deborphan
+  tags: setup_apt
+
+- name: run "aptitude upgrade"
+  become: true
+  apt:
+    upgrade: yes
+  tags: setup_apt
+
+- name: Remove dependencies that are no longer required
+  become: true
+  apt:
+    autoremove: yes
+
+- name: Remove useless packages from the cache
+  become: true
+  apt:
+    autoclean: yes

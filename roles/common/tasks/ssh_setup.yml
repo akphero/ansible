@@ -1,0 +1,16 @@
+---
+- name: add alternate ssh port
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    insertafter: '^Port\s22$'
+    line: 'Port {{ sg_system_alternate_ssh_port }}'
+  notify: restart sshd
+  tags: setup_ssh
+
+# - name: enable SSH forwarding for sudo
+#   lineinfile:
+#     dest: /etc/sudoers
+#     insertafter: '^#?\s*Defaults\s+env_keep\b'
+#     line: 'Defaults    env_keep += "SSH_AUTH_SOCK"'
+#   tags: setup_ssh

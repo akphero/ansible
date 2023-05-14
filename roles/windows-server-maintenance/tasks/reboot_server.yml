@@ -1,0 +1,4 @@
+---
+  - name: Reboot if system has a large uptime
+    win_reboot:
+    when: after_update_reboot and not ansible_check_mode

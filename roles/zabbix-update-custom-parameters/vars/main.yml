@@ -1,0 +1,14 @@
+## zabbix server vars
+ipaddress: ipaddress[*],ip addr show $1 | grep 'inet ' | cut -f1 -d'/' | tr --delete inet
+#Linux service monitoring using systemctl
+
+servicessystemctl: services.systemctl,echo "{\"data\":[$(systemctl list-unit-files --type=service|grep \.service|grep -v "@"|sed -E -e "s/\.service\s+/\",\"{\#STATUS}\":\"/;s/(\s+)?$/\"},/;s/^/{\"{\#NAME}\":\"/;$ s/.$//")]}"
+#servicessystemctl: test
+systemctlstatus: systemctl.status[*],systemctl status $1
+# Zabbix Log: Who is logged in?
+lastloginlogged_in_users: lastlogin.logged_in_users,last | grep 'still logged in'
+# Zabbix Alert: There are 1 or more users logged in
+lastloginlogged_in_users_alert: lastlogin.logged_in_users_alert,OUTPUT="$(last | grep 'still logged in')"; if [ -z "$OUTPUT" ]; then echo 0; else echo 1; fi
+#Zabbix Template Custom Service Monitoring Ubuntu
+serviceactivestate_zabbixagent: serviceactivestate.zabbixagent,systemctl show -p ActiveState zabbix-agent.service | sed 's/ActiveState=//g'
+servicesubstate_zabbixagent: servicesubstate.zabbixagent,systemctl show -p SubState zabbix-agent.service | sed 's/SubState=//g'

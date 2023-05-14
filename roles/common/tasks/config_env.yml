@@ -1,0 +1,48 @@
+---
+- name: enable sudo warning always
+  become: true
+  copy:
+    dest: /etc/sudoers.d/privacy
+    content: |
+      Defaults        lecture = always
+    mode: 0644
+  tags: configure_usr_env
+
+- name: interactive user tools installed
+  become: true
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+    cache_valid_time: 3600
+  vars:
+    packages:
+    - screen
+    - vim
+    - acl
+  tags: configure_usr_env
+
+- name: add the vimrc file
+  copy:
+    src: ../files/_vimrc
+    dest: "{{ ansible_env.HOME }}/.vimrc"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0644
+  tags: configure_usr_env
+
+# remap control key
+- name: capslock remapped to ctrl
+  become: true
+  replace:
+    path: /etc/default/keyboard
+    regexp: '^XKBOPTIONS=""'
+    replace: 'XKBOPTIONS="ctrl:nocaps"'
+  tags: configure_usr_env
+
+# set vim as the default editor
+- name: vim.basic select default editor
+  become: true
+  alternatives:
+    name: editor
+    path: /usr/bin/vim.basic
+  tags: configure_usr_env

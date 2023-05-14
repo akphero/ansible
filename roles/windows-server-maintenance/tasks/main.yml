@@ -1,0 +1,4 @@
+---
+- import_tasks: update_service_state.yml
+- import_tasks: install_windows_updates.yml
+- import_tasks: reboot_server.yml

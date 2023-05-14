@@ -1,0 +1,15 @@
+## Corporate Inc,
+
+# {{ ansible_managed }}
+
+UserParameter={{ ipaddress }}
+#Linux service monitoring using systemctl
+UserParameter={{ servicessystemctl }}
+UserParameter={{ systemctlstatus }}
+# Zabbix Log: Who is logged in?
+UserParameter={{ lastloginlogged_in_users }}
+# Zabbix Alert: There are 1 or more users logged in
+UserParameter={{ lastloginlogged_in_users_alert }}
+#Zabbix Template Custom Service Monitoring Ubuntu
+UserParameter={{ serviceactivestate_zabbixagent }}
+UserParameter={{ servicesubstate_zabbixagent }}

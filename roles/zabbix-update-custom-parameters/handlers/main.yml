@@ -1,0 +1,42 @@
+---
+
+# apache handlers
+- name: apache_restart
+  become: true
+  service: name=apache2 state=restarted
+
+
+# mysql handlers
+- name: mysql_enable
+  become: true
+  service: name=mysql enabled=yes
+
+- name: mysql_restart
+  become: true
+  service: name=mysql state=restarted
+
+- name: mysql_start
+  become: true
+  service: name=mysql state=started
+
+
+# zabbix handlers
+
+# agent handlers
+- name: restart zabbix-agent
+  become: true
+  service: name=zabbix-agent state=restarted
+
+# proxy handlers
+- name: restart zabbix-proxy
+  become: true
+  service: name=zabbix-proxy state=restarted
+
+# server related handlers
+- name: start zabbix-server
+  become: true
+  service: name=zabbix-server state=started
+
+- name: restart zabbix-server
+  become: true
+  service: name=zabbix-server state=restarted

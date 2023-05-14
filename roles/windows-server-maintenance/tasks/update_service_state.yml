@@ -1,0 +1,6 @@
+---
+# One way to ensure the system is reliable just after a reboot, is to set WinRM to a delayed startup
+- name: Ensure WinRM starts when the system has settled and is ready to work reliably
+  win_service:
+    name: WinRM
+    start_mode: delayed

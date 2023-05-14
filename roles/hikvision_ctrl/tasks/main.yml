@@ -1,0 +1,66 @@
+---
+# Install wine and hikvision SADP tool
+- name: required steps before installing wine
+  debug:
+    msg:
+      - 'Go to this site and install the wine packages'
+      - 'https://linuxhint.com/install_wine_ubuntu/'
+  tags: install_hiktools
+
+- name: install wine
+  become: true
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+  vars:
+    packages:
+#    - wine
+    - wine64 wine32
+    - wine-mono-complete
+    - wine-gecko\*
+    - winetricks
+  tags: install_sdap
+
+- name: initalize wine
+  shell: WINEARCH=win32 WINEPREFIX=~/.wine wine wineboot
+  args:
+    creates: .wine
+  tags: install_hiktools
+
+- name: create wine file dir
+  file:
+    path: "/home/{{ ansible_user_id }}/wintools"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755
+  tags: install_hiktools
+
+- name: copy files over
+  copy:
+    src: "{{ item }}"
+    dest: "/home/{{ ansible_user_id }}/wintools"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755
+  with_items:
+    - ../files/SADPTool.exe
+    - ../files/BatchConfigTool.exe
+  tags: install_hiktools
+
+- name: required steps to finish hikvision setup
+  debug:
+    msg:
+      - 'To finish setup: ssh -C -X {{ ansible_user_id }}@{{ ansible_default_ipv4.address }}'
+      - 'Execute wine wintools/SADP_V3.0.0.10.exe'
+      - ' - click through the install sequence...'
+      - ' - uncheck create desktop icon'
+      - 'To use the tool run:'
+      - 'wine "C:\Program Files\SADPTool\SADPTool.exe"'
+      - 'wine "C:\Program Files\Batch Configuration\Batch Configuration.exe'
+      - 'If you are running a 64-bit Ubuntu system, enable the 32-bit architecture and update the packages list:'
+      - 'sudo dpkg --add-architecture i386'
+      - 'sudo apt update'
+  tags: install_hiktools

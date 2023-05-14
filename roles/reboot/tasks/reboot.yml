@@ -1,0 +1,48 @@
+---
+- name: Run cat command to show the results of uptime
+  shell: cat uptime.txt
+  register: command_result
+
+#- name: Ansible shell register result
+#  debug: msg="{{ command_result }}"
+
+- name: standard output of uptime.txt file results
+  debug: msg="{{ command_result.stdout }}"
+
+- name: uptime status
+  debug:
+    msg:
+      - 'check uptime.txt on the server for currect server uptime'
+
+- name: Echo hostname
+  shell: echo {{ansible_host}}
+
+- name: Reboot the server and wait for it to come back
+  shell: sleep 2 && reboot
+  async: 30
+  poll: 0
+  ignore_errors: true
+  become: true
+
+- name: Wait for play hosts to be up again
+  wait_for:
+    host: '{{hostvars[item].ansible_host}}'
+    state: started
+    delay: 20
+    timeout: 120
+  with_items: '{{play_hosts}}' 
+  connection: local
+
+- name: write system uptime to file after system restart
+  become: true
+  shell: echo ------ >> uptime.txt && date >> uptime.txt && uptime >> uptime.txt && echo ------ >> uptime.txt
+
+- name: Run cat command to show the results of uptime
+  shell: cat uptime.txt
+  register: command_result
+
+#- name: Ansible shell register result
+#  debug: msg="{{ command_result }}"
+
+- name: standard output of uptime.txt file results
+  debug: msg="{{ command_result.stdout }}"

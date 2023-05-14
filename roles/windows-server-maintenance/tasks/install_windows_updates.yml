@@ -1,0 +1,15 @@
+---
+#https://www.reddit.com/r/ansible/comments/dd8oi2/whats_your_playbook_for_updating_windows_servers/
+    - name:
+      win_updates:
+        category_names:
+          - SecurityUpdates
+          - CriticalUpdates
+          - UpdateRollups
+          - DefinitionUpdates
+          - Updates
+      become: yes
+      become_method: runas
+      become_user: SYSTEM
+      register: update_results
+

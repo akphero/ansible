@@ -1,0 +1,8 @@
+UserParameter=ipaddress[*],ip addr show $1 | grep 'inet ' | cut -f1 -d'/' | tr --delete inet
+#Linux service monitoring using systemctl
+UserParameter=services.systemctl,echo "{\"data\":[$(systemctl list-unit-files --type=service|grep \.service|grep -v "@"|sed -E -e "s/\.service\s+/\",\"{#STATUS}\":\"/;s/(\s+)?$/\"},/;s/^/{\"{#NAME}\":\"/;$ s/.$//")]}"
+UserParameter=systemctl.status[*],systemctl status $1
+# Zabbix Log: Who is logged in?
+UserParameter=lastlogin.logged_in_users,last | grep 'still logged in'
+# Zabbix Alert: There are 1 or more users logged in
+UserParameter=lastlogin.logged_in_users_alert,OUTPUT="$(last | grep 'still logged in')"; if [ -z "$OUTPUT" ]; then echo 0; else echo 1; fi

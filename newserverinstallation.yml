@@ -1,0 +1,15 @@
+---
+# This playbook configures all staged stableguard machines
+- hosts: hostname
+#  vars_files:
+#    - secrets/secrets.yml
+  roles:
+#    - { role: sysinfo }
+#    - { role: common }
+#    - { role: aptitude }
+#    - { role: ddclient }
+#    - { role: update-ssh-keys }
+#    - { role: zabbix-update-custom-parameters }
+#    - { role: install-application }
+#    - { role: reboot }
+#    - { role: hikvision_ctrl }

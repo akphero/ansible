@@ -1,0 +1,3 @@
+---
+- import_tasks: uptime.yml
+- import_tasks: reboot.yml

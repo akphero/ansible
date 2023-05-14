@@ -1,0 +1,8 @@
+---
+- name: Add admin ssh keys
+  authorized_key:
+    user: "{{ ansible_user_id }}"
+    state: present
+    key: "{{lookup('file', item )}}"
+  with_fileglob:
+    - "../../../secrets/ssh_keys/admins/allow/*.pub"

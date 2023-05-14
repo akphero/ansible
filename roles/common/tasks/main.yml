@@ -1,0 +1,8 @@
+---
+- import_tasks: set_hostname.yml
+- import_tasks: ssh_setup.yml
+  when: sg_system_alternate_ssh_port is defined
+- import_tasks: apt_setup.yml
+  when: skip_aptitude_upgrade is not defined
+- import_tasks: config_env.yml
+#- import_tasks: add_ssh_keys.yml

@@ -1,0 +1,10 @@
+---
+- name: update custom parameters file
+  become: true
+  template:
+    src: userparameter_abc_custom.conf.j2
+    dest: /etc/zabbix/zabbix_agentd.d/userparameter_abc_custom.conf
+#    owner: root
+#    group: root
+    mode: 644
+  notify: restart zabbix-agent

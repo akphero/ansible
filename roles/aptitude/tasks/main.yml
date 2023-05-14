@@ -1,0 +1,3 @@
+---
+- import_tasks: apt_setup.yml
+  when: skip_aptitude_upgrade is not defined

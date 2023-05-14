@@ -1,0 +1,44 @@
+---
+- hosts: hostname
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  connection: ssh
+  vars:
+    - systemadminpassword_password: 'placehashed password here'
+
+  tasks:
+    - name: Add a new user named newsystemuseraccountname
+      user:
+          name=newsystemuseraccountname
+          password={{ systemadminpassword_password }}
+    - name: Add newsystemuseraccountname user to the sudoers
+      copy:
+        dest: "/etc/sudoers.d/newsystemuseraccountname"
+        content: "newsystemuseraccountname  ALL=(ALL)  NOPASSWD: ALL"
+    - name: Deploy SSH Key
+      authorized_key: user=newsystemuseraccountname
+                     key="{{ lookup('file', 'locationofkeyfile') }}"
+                     state=present
+    - name: Disable Password Authentication
+      lineinfile:
+        dest=/etc/ssh/sshd_config
+        regexp='^PasswordAuthentication'
+        line="PasswordAuthentication no"
+        state=present
+        backup=yes
+      notify:
+        - restart ssh
+    - name: Disable Root Login
+      lineinfile:
+        dest=/etc/ssh/sshd_config
+        regexp='^PermitRootLogin'
+        line="PermitRootLogin no"
+        state=present
+        backup=yes
+
+  handlers:
+    - name: restart ssh
+      service:
+        name=sshd
+        state=restarted

@@ -1,0 +1,4 @@
+---
+- name: write system uptime to file
+  become: true
+  shell: echo ------ > uptime.txt && date >> uptime.txt && uptime >> uptime.txt && echo ------ >> uptime.txt

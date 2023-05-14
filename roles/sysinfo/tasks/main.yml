@@ -1,0 +1,10 @@
+---
+- name: Print hostname and IP address to temp file
+  shell: hostname --all-ip-addresses > temp.txt && hostname >> temp.txt
+
+- name: Register the result of the temp file to memory
+  shell: cat temp.txt
+  register: command_result
+
+- name: List the results of a temp file from memory
+  debug: msg="{{ command_result.stdout }}"

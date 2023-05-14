@@ -1,0 +1,25 @@
+---
+# Install and configure ddclient
+  - name: install ddclient
+    become: true
+    apt:
+      name: "{{ packages }}"
+      update_cache: yes
+      cache_valid_time: 3600
+    vars:
+      packages:
+      - libio-socket-ssl-perl
+      - ddclient
+    tags: ddclient
+  
+  - name: configure ddclient
+    become: true
+    template:
+      src: ddclient.conf.j2
+      dest: /etc/ddclient.conf
+      owner: root
+      group: root
+      mode: 600
+    notify: restart ddclient
+    tags: ddclient
+  
