@@ -51,7 +51,7 @@ Step4. Exclude ansible.cfg from being uploaded to the repository.
 
 ### Ansible Basics
 
-Inside a playbooks folder, playbooks have been created based on the need. All roles that are manually run from ansible controller, are stored in the [manual][manual-playbooks-url] folder.
+Inside a playbooks[ansible-playbooks-url] folder, playbooks are created based on requests. If you want a certain playbook created. Please reach out to me on linkedin[linked-in-url]. 
 
 The [inventory][ansible-hosts-config-url] folder keeps all hosts information for every server. It must be updated and keep it up to date in order for [roles][ansible-roles-url] and [playbooks][ansible-playbooks-url] to work correctly.
 
@@ -65,7 +65,7 @@ Example1: To find information about a spefic host.
     #List all information about the server
     ansible -m setup SAMPLE-SERVER
     ``` 
-    
+
 Example: Sample playbook configuration
 
 
@@ -123,3 +123,4 @@ Example2: How to run a playbook again a new server.
 [ansible-hosts-file-url]: https://github.com/akphero/ansible/blob/master/inventory/hosts
 [ansible-hosts-vars-file-url]: https://github.com/akphero/ansible/tree/master/inventory/host_vars
 [how-to-set-up-ssh-key-guide-url]: https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key
+[linked-in-url]: https://www.linkedin.com/in/aleksandrkarnafel/
