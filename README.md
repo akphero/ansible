@@ -51,7 +51,7 @@ Step4. Exclude ansible.cfg from being uploaded to the repository.
 
 ### Ansible Basics
 
-Inside a playbooks[ansible-playbooks-url] folder, playbooks are created based on requests. If you want a certain playbook created. Please reach out to me on linkedin[linked-in-url]. 
+Inside a playbooks[ansible-playbooks-url] folder, playbooks are created based on requests. If you want a certain playbook created. Please reach out to me on [linkedin][linked-in-url]. 
 
 The [inventory][ansible-hosts-config-url] folder keeps all hosts information for every server. It must be updated and keep it up to date in order for [roles][ansible-roles-url] and [playbooks][ansible-playbooks-url] to work correctly.
 
