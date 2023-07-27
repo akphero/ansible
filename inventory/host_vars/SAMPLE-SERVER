@@ -1,0 +1,11 @@
+---
+system_alternate_ssh_port: "{{ system_default_alternate_ssh_port }}"
+
+system:
+    hostname: SAMPLE-SERVER
+    environment_type: 'new' # Options: legacy, new
+    deployment_type: 'dev'  #Options: prod,stage,dev
+    server_category_type: 'web'  #Options: web,db,mgm,svc,legacy,other
+    smbshare1_mount_type: dev-apps # Options: prod-apps,stage-apps,dev-apps
+    ssl_certificate: 'yes'
+    IPV4address: xxx.xxx.xxx.xxx
