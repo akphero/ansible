@@ -22,21 +22,28 @@ Once the key is generate, have someone with access to server create you a user a
 ### Installation (CensOS)
 
 Step1. Install [Ansible][ansible-help-url]. It will install ansible-core with required dependencies.
+
     ```shell
     #Install ansible-core onto your CentOS box
     sudo dnf install ansible-core
     ``` 
+
 Step2. Clone the repository to your computer.
+
     ```shell
     # Clone the repository and place it where ever you would like
     git clone git@github.com:akphero/ansible.git
     ``` 
+
 Step3. Modify the ansible.cfg by uncommending the log path. This will enable logging on your local computer, but it will disable uploading the config file.
+
     ```shell
     #Enable ansible logging
     sed -i 's/#log_path/log_path/' ansible.cfg
     ``` 
+
 Step4. Exclude ansible.cfg from being uploaded to the repository.
+
     ```shell
     #Exclude ansible.cfg from git updates
     git update-index --assume-unchanged ansible.cfg
@@ -51,12 +58,14 @@ The [inventory][ansible-hosts-config-url] folder keeps all hosts information for
 ### Examples
 
 Example1: To find information about a spefic host.
+
     ```shell
     #Check if host is available
     ansible -m ping SAMPLE-SERVER
     #List all information about the server
     ansible -m setup SAMPLE-SERVER
     ``` 
+    
 Example: Sample playbook configuration
 
 
