@@ -1,0 +1,9 @@
+- name: Restart Scheduler Service
+  hosts: proxyservers
+  become: yes  # This will enable privilege escalation
+
+  tasks:
+    - name: Ensure scheduler service is restarted
+      systemd:
+        name: scheduler-service-name  # Replace with the actual name of your scheduler service
+        state: {{ state }}                  
