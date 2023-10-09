@@ -75,18 +75,8 @@ Example: Sample playbook configuration
         roles:
         #    - { role: roles/sysinfo }
         #    - { role: roles/common }
-        #    - { role: roles/enable-repo }
-        #    - { role: roles/install-application }
-        #    - { role: roles/sophos }
-        #    - { role: roles/os-update }    
-        #    - { role: roles/docker-install }
-        #    - { role: roles/docker-redis }
-        #    - { role: roles/docker-smtp-container }
-        #    - { role: roles/system-environment-variables }
-        #    - { role: roles/update-ssh-keys }
-        #    - { role: roles/zabbix-update-custom-parameters }
-        #    - { role: roles/install-application }
         #    - { role: roles/reboot }
+        #    - { role: roles/install-application }
 
 Example2: How to run a playbook again a new server. 
 
